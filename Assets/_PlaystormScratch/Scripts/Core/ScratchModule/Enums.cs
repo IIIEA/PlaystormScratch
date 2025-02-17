@@ -1,4 +1,4 @@
-namespace Scripts.Core
+namespace _PlaystormScratch.Core.ScratchModule
 {
     public enum Quality
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Scripts.Core
+namespace _PlaystormScratch.Core.ScratchModule
 {
   public static class Constants
   {

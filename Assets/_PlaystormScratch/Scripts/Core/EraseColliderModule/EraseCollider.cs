@@ -7,16 +7,17 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Scripts
+namespace _PlaystormScratch.Core.EraseColliderModule
 {
   public class EraseCollider : MonoBehaviour
   {
-    public float _eraseRadius = 0.5f;
-    public int _resolution = 20;
+    [SerializeField] private float _eraseRadius = 0.5f;
+    [SerializeField] private int _resolution = 20;
+    
     private PolygonCollider2D _polygonCollider;
     private Vector2 _previousMousePosition;
 
-    private void Start()
+    private void Awake()
     {
       _polygonCollider = GetComponent<PolygonCollider2D>();
       _previousMousePosition = GetMouseWorldPosition();

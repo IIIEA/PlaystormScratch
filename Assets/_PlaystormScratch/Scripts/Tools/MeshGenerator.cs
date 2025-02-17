@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Scripts.Tools
+namespace _PlaystormScratch.Tools
 {
   public static class MeshGenerator
   {

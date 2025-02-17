@@ -6,36 +6,36 @@ using UnityEngine.InputSystem.EnhancedTouch;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
-namespace Scripts.Core.InputData
+namespace _PlaystormScratch.InputData
 {
-  public class ScratchCardInput
+  public class PlayerInputs
   {
-    public event ScratchHandler OnScratch;
-    public event Action<Vector2> OnScratchHole;
-    public event Action<Vector2, Vector2> OnScratchLine;
-
-    public delegate Vector2 ScratchHandler(Vector2 position);
-
-    private bool IsScratching => _isScratching != null && _isScratching.Any(scratching => scratching);
+    private const int MAX_TOUCH_COUNT = 10;
+    private const int RESERVE_TOUCH_COUNT = 1;
 
     private Vector2 _scratchPosition;
     
     private readonly Vector2[] _startInputData;
     private readonly Vector2[] _endInputData;
-    private readonly Vector2?[] _previousScratchPosition;
-    private readonly bool[] _isScratching;
+    private readonly Vector2?[] _previousPosition;
+    private readonly bool[] _isInputsPressed;
     private readonly bool[] _isStartPosition;
 
-    private const int MAX_TOUCH_COUNT = 10;
-    private const int RESERVE_TOUCH_COUNT = 1;
+    private bool IsScratching => _isInputsPressed != null && _isInputsPressed.Any(isPressed => isPressed);
+    
+    public event ScratchHandler OnScratch;
+    public event Action<Vector2> OnScratchHole;
+    public event Action<Vector2, Vector2> OnScratchLine;
+    public delegate Vector2 ScratchHandler(Vector2 position);
 
-    public ScratchCardInput()
+
+    public PlayerInputs()
     {
-      _isScratching = new bool[MAX_TOUCH_COUNT + RESERVE_TOUCH_COUNT];
+      _isInputsPressed = new bool[MAX_TOUCH_COUNT + RESERVE_TOUCH_COUNT];
       _isStartPosition = new bool[MAX_TOUCH_COUNT + RESERVE_TOUCH_COUNT];
       _startInputData = new Vector2[MAX_TOUCH_COUNT + RESERVE_TOUCH_COUNT];
       _endInputData = new Vector2[MAX_TOUCH_COUNT + RESERVE_TOUCH_COUNT];
-      _previousScratchPosition = new Vector2?[MAX_TOUCH_COUNT + RESERVE_TOUCH_COUNT];
+      _previousPosition = new Vector2?[MAX_TOUCH_COUNT + RESERVE_TOUCH_COUNT];
       
       for (var i = 0; i < _isStartPosition.Length; i++)
       {
@@ -61,7 +61,7 @@ namespace Scripts.Core.InputData
           
           if (touch.phase == TouchPhase.Began)
           {
-            _isScratching[fingerId] = false;
+            _isInputsPressed[fingerId] = false;
             _isStartPosition[fingerId] = true;
           }
 
@@ -72,8 +72,8 @@ namespace Scripts.Core.InputData
 
           if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
           {
-            _isScratching[fingerId] = false;
-            _previousScratchPosition[fingerId] = null;
+            _isInputsPressed[fingerId] = false;
+            _previousPosition[fingerId] = null;
           }
 
           Scratch();
@@ -83,7 +83,7 @@ namespace Scripts.Core.InputData
       {
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-          _isScratching[0] = false;
+          _isInputsPressed[0] = false;
           _isStartPosition[0] = true;
         }
 
@@ -94,8 +94,8 @@ namespace Scripts.Core.InputData
 
         if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-          _isScratching[0] = false;
-          _previousScratchPosition[0] = null;
+          _isInputsPressed[0] = false;
+          _previousPosition[0] = null;
         }
 
         Scratch();
@@ -123,18 +123,18 @@ namespace Scripts.Core.InputData
         _endInputData[fingerId] = _scratchPosition;
       }
 
-      if (!_isScratching[fingerId])
+      if (!_isInputsPressed[fingerId])
       {
         _endInputData[fingerId] = _startInputData[fingerId];
-        _isScratching[fingerId] = true;
+        _isInputsPressed[fingerId] = true;
       }
     }
 
     private void Scratch()
     {
-      for (var i = 0; i < _isScratching.Length; i++)
+      for (var i = 0; i < _isInputsPressed.Length; i++)
       {
-        if (_isScratching[i])
+        if (_isInputsPressed[i])
         {
           if (_startInputData[i] == _endInputData[i])
           {
