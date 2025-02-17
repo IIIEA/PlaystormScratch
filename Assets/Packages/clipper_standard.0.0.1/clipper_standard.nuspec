@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>clipper_standard</id>
+    <version>0.0.1</version>
+    <authors>Trevor Von Seggern</authors>
+    <owners>Trevor Von Seggern</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Dotnet standard port of ClipperLib.</description>
+    <dependencies>
+      <group targetFramework=".NETStandard1.0">
+        <dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+  </metadata>
+</package>
