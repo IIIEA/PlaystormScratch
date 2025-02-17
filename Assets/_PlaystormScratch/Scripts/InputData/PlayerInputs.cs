@@ -26,8 +26,10 @@ namespace _PlaystormScratch.InputData
     public event ScratchHandler OnScratch;
     public event Action<Vector2> OnScratchHole;
     public event Action<Vector2, Vector2> OnScratchLine;
+    public event Action<Vector2> OnInputStart;
+    public event Action<Vector2> OnInputPerformed;
+    public event Action<Vector2> OnInputEnded;
     public delegate Vector2 ScratchHandler(Vector2 position);
-
 
     public PlayerInputs()
     {
@@ -63,17 +65,21 @@ namespace _PlaystormScratch.InputData
           {
             _isInputsPressed[fingerId] = false;
             _isStartPosition[fingerId] = true;
+            
+            OnInputStart?.Invoke(touch.screenPosition);
           }
 
           if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
           {
             SetInputData(fingerId, touch.screenPosition);
+            OnInputPerformed?.Invoke(touch.screenPosition);
           }
 
           if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
           {
             _isInputsPressed[fingerId] = false;
             _previousPosition[fingerId] = null;
+            OnInputEnded?.Invoke(touch.screenPosition);
           }
 
           Scratch();
@@ -85,17 +91,20 @@ namespace _PlaystormScratch.InputData
         {
           _isInputsPressed[0] = false;
           _isStartPosition[0] = true;
+          OnInputStart?.Invoke(Mouse.current.position.ReadValue());
         }
 
         if (Mouse.current.leftButton.isPressed)
         {
           SetInputData(0, Mouse.current.position.ReadValue());
+          OnInputPerformed?.Invoke(Mouse.current.position.ReadValue());
         }
 
         if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
           _isInputsPressed[0] = false;
           _previousPosition[0] = null;
+          OnInputEnded?.Invoke(Mouse.current.position.ReadValue());
         }
 
         Scratch();

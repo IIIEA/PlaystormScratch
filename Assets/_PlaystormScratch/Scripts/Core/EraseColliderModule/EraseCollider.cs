@@ -1,11 +1,12 @@
+using System;
 using System.Collections.Generic;
+using _PlaystormScratch.InputData;
 using ClipperLib;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace _PlaystormScratch.Core.EraseColliderModule
 {
@@ -16,26 +17,46 @@ namespace _PlaystormScratch.Core.EraseColliderModule
     
     private PolygonCollider2D _polygonCollider;
     private Vector2 _previousMousePosition;
+    private Camera _camera;
+    private PlayerInputs _inputs;
 
     private void Awake()
     {
+      _camera = Camera.main;
       _polygonCollider = GetComponent<PolygonCollider2D>();
-      _previousMousePosition = GetMouseWorldPosition();
+      _inputs = new PlayerInputs();
+    }
+
+    private void OnEnable()
+    {
+      _inputs.OnInputStart += OnInputsPerformed;
+      _inputs.OnInputPerformed += OnInputsPerformed;
+      _inputs.OnInputEnded += OnInputsEnded;
+    }
+
+    private void OnDisable()
+    {
+      _inputs.OnInputStart -= OnInputsPerformed;
+      _inputs.OnInputPerformed -= OnInputsPerformed;
+      _inputs.OnInputEnded -= OnInputsEnded;
     }
 
     private void Update()
     {
-      if (Mouse.current.leftButton.isPressed)
-      {
-        Vector2 currentMousePosition = GetMouseWorldPosition();
-        InterpolateAndErase(_previousMousePosition, currentMousePosition);
+      _inputs.TryUpdate();
+    }
 
-        _previousMousePosition = currentMousePosition;
-      }
-      else
-      {
-        _previousMousePosition = GetMouseWorldPosition();
-      }
+    private void OnInputsPerformed(Vector2 position)
+    {
+      Vector2 currentMousePosition = GetPointWorldPosition(position);
+      InterpolateAndErase(_previousMousePosition, currentMousePosition);
+
+      _previousMousePosition = currentMousePosition;
+    }
+
+    private void OnInputsEnded(Vector2 position)
+    {
+      _previousMousePosition = GetPointWorldPosition(position);
     }
 
     private void InterpolateAndErase(Vector2 start, Vector2 end)
@@ -148,9 +169,9 @@ namespace _PlaystormScratch.Core.EraseColliderModule
       return points;
     }
 
-    private Vector2 GetMouseWorldPosition()
+    private Vector2 GetPointWorldPosition(Vector3 pointPosition)
     {
-      return Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+      return _camera.ScreenToWorldPoint(pointPosition);
     }
 
     [BurstCompile]
