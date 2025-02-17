@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Scratch_Mask
-  m_Shader: {fileID: 4800000, guid: c0ef29789694897499542c6c980a9209, type: 3}
+  m_Name: Scratch_Brush
+  m_Shader: {fileID: 4800000, guid: 9cebc269ad577414ba1d9b09511d2c89, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -24,15 +24,16 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: d604bf55f1fc59b4a9dab895aaa9842e, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MaskTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: b5c864e29f281c2409fa24f8ec84b2ee, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _BlendOpValue: 0
+    - _DstAlphaBlend: 1
+    - _DstColorBlend: 10
+    - _SrcAlphaBlend: 5
+    - _SrcColorBlend: 5
     m_Colors:
-    - _Offset: {r: 0, g: 0, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

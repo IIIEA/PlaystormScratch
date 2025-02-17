@@ -122,55 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &297002058
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 297002060}
-  - component: {fileID: 297002061}
-  m_Layer: 0
-  m_Name: Scratch
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &297002060
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 297002058}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 538141087}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &297002061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 297002058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca8287d11cedb0241a2f5997b1264212, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _surfaceTransform: {fileID: 1459971376}
-  _surfaceMaterial: {fileID: 359631128}
-  _brushMaterial: {fileID: 0}
-  _brushSize: 1
-  _renderTextureQuality: 1
 --- !u!21 &359631128
 Material:
   serializedVersion: 8
@@ -328,8 +279,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 297002060}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &538141088
@@ -341,17 +291,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 538141085}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04d4d4881949f7245a858c9eea964af0, type: 3}
+  m_Script: {fileID: 11500000, guid: a102ce18c2074481bbd00e4285da4f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _card: {fileID: 297002061}
-  _spriteRendererCard: {fileID: 1459971377}
-  _mainCamera: {fileID: 519420031}
-  _scratchSurfaceSprite: {fileID: 21300000, guid: d604bf55f1fc59b4a9dab895aaa9842e, type: 3}
-  _brushTexture: {fileID: 2800000, guid: b5c864e29f281c2409fa24f8ec84b2ee, type: 3}
-  _brushSize: 1
-  _maskShader: {fileID: 4800000, guid: c0ef29789694897499542c6c980a9209, type: 3}
-  _brushShader: {fileID: 4800000, guid: 9cebc269ad577414ba1d9b09511d2c89, type: 3}
+  _view: {fileID: 1459971380}
+  _config: {fileID: 11400000, guid: c151fbd06a41e7b45b92dc4b5b5c1218, type: 2}
 --- !u!1 &785813866
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,6 +555,7 @@ GameObject:
   - component: {fileID: 1459971377}
   - component: {fileID: 1459971379}
   - component: {fileID: 1459971378}
+  - component: {fileID: 1459971380}
   m_Layer: 0
   m_Name: "\u0434\u043B\u044F \u0441\u0442\u0438\u0440\u0430\u043D\u0438\u044F"
   m_TagString: Untagged
@@ -851,6 +796,20 @@ PolygonCollider2D:
       - {x: 3.09, y: -3.47}
       - {x: 3.3899999, y: -3.3999999}
   m_UseDelaunayMesh: 1
+--- !u!114 &1459971380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459971375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e0f01eae2b84c49bc599aa90bdb5398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 1459971377}
+  _maskMaterial: {fileID: 2100000, guid: b06a04c9b92eefb4f9d46347f12883ca, type: 2}
 --- !u!1 &1825051886
 GameObject:
   m_ObjectHideFlags: 0
